@@ -1,0 +1,45 @@
+.pokemonCard {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: clamp(10rem, 15rem, 20rem);
+	margin: 0.5rem;
+	border-radius: 0.5rem;
+	background: var(--color-2);
+}
+
+.pokemonCardName {
+	width: 100%;
+	padding: 1rem;
+	background: hsla(0, 0%, 0%, 0.6);
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: var(--color-3);
+}
+
+.pokemonCardTypes {
+	display: flex;
+}
+
+.pokemonCardType {
+	margin: 0.2rem;
+	padding: 0.5rem;
+	background: var(--color-1);
+}
+
+.pokemonCardAbilities {
+	display: flex;
+}
+.pokemonCardAbility {
+	margin: 0.2rem;
+	padding: 0.5rem;
+	background: var(--color-3);
+	color: black;
+}
+
+.pokemonCardBaseXP {
+	padding: 0.5rem;
+	color: white;
+}

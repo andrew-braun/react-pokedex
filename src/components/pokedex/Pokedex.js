@@ -43,7 +43,7 @@ function Pokedex() {
 				console.log(error)
 			}
 		}
-		fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=3")
+		fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=21")
 	}, [])
 
 	return <div className={styles.pokedex}>{pokemonCards}</div>
