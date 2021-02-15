@@ -1,7 +1,8 @@
-import styles from "./pokedex.module.css"
+import styles from "./pokemoncard.module.css"
 
-function PokemonCard() {
-	return <div className={styles.pokemoncard}>{pokemonCards}</div>
+function PokemonCard({ pokemonData }) {
+	const { name } = pokemonData
+	return <div className={styles.pokemoncard}>{name}</div>
 }
 
 export default PokemonCard

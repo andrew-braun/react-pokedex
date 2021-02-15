@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import PokemonCard from "../pokemoncard/PokemonCard"
 import styles from "./pokedex.module.css"
 
 function Pokedex() {
@@ -12,9 +13,9 @@ function Pokedex() {
 				const data = await response.json()
 				await setPokemonData(data)
 				console.log(data.results)
-				const cards = await data.results.map(
-					(pokemon) => `<p>${pokemon.name}</p>`
-				)
+				const cards = await data.results.map((pokemon) => (
+					<PokemonCard pokemonData={pokemon} key={`${pokemon.name}-key`} />
+				))
 				await setPokemonCards(cards)
 			} catch (error) {
 				console.log(error)
