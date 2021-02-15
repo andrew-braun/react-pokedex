@@ -1,0 +1,36 @@
+.layout {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+.header {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 1rem;
+	background: var(--color-1);
+}
+
+.siteTitle {
+	color: var(--color-3);
+	font-size: 2rem;
+	font-weight: 800;
+}
+
+.main {
+	min-height: 77vh;
+}
+
+.footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 1rem;
+	background: hsl(213, 57%, 52%);
+	color: hsla(0, 0%, 0%, 0.8);
+	font-size: 1.1rem;
+}
