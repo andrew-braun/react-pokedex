@@ -7,6 +7,14 @@
 	margin: 0.5rem;
 	border-radius: 0.5rem;
 	background: var(--color-2);
+	transition-timing-function: ease-in-out;
+	transition-duration: 0.2s;
+	animation: fadeIn 0.5s;
+}
+
+.pokemonCard:hover {
+	transform: rotate(5deg) translateY(-20px);
+	opacity: 0.9;
 }
 
 .pokemonCardName {
@@ -42,4 +50,13 @@
 .pokemonCardBaseXP {
 	padding: 0.5rem;
 	color: white;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
