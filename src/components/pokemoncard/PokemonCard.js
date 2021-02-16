@@ -13,7 +13,7 @@ function PokemonCard({ pokemonData }) {
 				{name.slice(0, 1).toUpperCase() + name.slice(1, name.length)}
 			</div>
 			<div className={styles.pokemonCardImage}>
-				<img src={front_default} />
+				<img src={front_default} alt={name} />
 			</div>
 			<div className={styles.pokemonCardTypes}>
 				{types.map((item) => (
