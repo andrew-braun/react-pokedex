@@ -1,18 +1,17 @@
+import React, { useState } from "react"
 import Layout from "../../components/layout/Layout"
-import Pokedex from "../../components/pokedex/Pokedex"
-import Sidebar from "../../components/sidebar/Sidebar"
+import PokedexContainer from "../../components/pokedexcontainer/PokedexContainer"
 import styles from "./home.module.css"
 
 function Home() {
+	const selectedPokemon = useState([])
+
+	function handlePokemonCardClick(event) {}
+
 	return (
 		<Layout>
 			<div className={styles.homePage}>
-				<div className={styles.pokedexContainer}>
-					<Pokedex />
-				</div>
-				<div className={styles.sidebarContainer}>
-					<Sidebar />
-				</div>
+				<PokedexContainer />
 			</div>
 		</Layout>
 	)

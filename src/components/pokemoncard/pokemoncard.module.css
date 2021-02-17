@@ -5,6 +5,8 @@
 	align-items: center;
 	width: clamp(10rem, 15rem, 20rem);
 	margin: 0.5rem;
+	padding: 0;
+	border: 0;
 	border-radius: 0.5rem;
 	background: var(--color-2);
 	transition-timing-function: ease-in-out;
@@ -21,6 +23,7 @@
 	width: 100%;
 	padding: 1rem;
 	background: hsla(0, 0%, 0%, 0.6);
+	border-radius: 0.5rem;
 	text-align: center;
 	font-size: 1.5rem;
 	font-weight: 600;

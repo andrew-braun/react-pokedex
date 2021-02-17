@@ -1,6 +1,6 @@
 import styles from "./sidebar.module.css"
 
-function Sidebar() {
+function Sidebar({ props }) {
 	return (
 		<aside className={styles.sidebar}>
 			<header className={styles.sidebarHeader}>

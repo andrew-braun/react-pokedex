@@ -1,14 +1,11 @@
 import styles from "./pokemoncard.module.css"
 
-function PokemonCard({ pokemonData }) {
+function PokemonCard({ pokemonData, onClick }) {
 	const { name, types, abilities, base_experience, sprites } = pokemonData
-	const [ability1, ability2] = abilities.map((item) => item.ability.name)
 	const { front_default } = sprites
-	console.log(front_default)
 
-	console.log(sprites)
 	return (
-		<div className={styles.pokemonCard}>
+		<button className={styles.pokemonCard} onClick={onClick}>
 			<div className={styles.pokemonCardName}>
 				{name.slice(0, 1).toUpperCase() + name.slice(1, name.length)}
 			</div>
@@ -26,7 +23,7 @@ function PokemonCard({ pokemonData }) {
 				))}
 			</div>
 			<div className={styles.pokemonCardBaseXP}>Base XP: {base_experience}</div>
-		</div>
+		</button>
 	)
 }
 
