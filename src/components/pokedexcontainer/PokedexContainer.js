@@ -10,6 +10,13 @@ function PokedexContainer() {
 	const [pokemonCards, setPokemonCards] = useState([])
 	const [selectedPokemon, setSelectedPokemon] = useState([])
 
+	const handlePokemonCardClick = (event) => {
+		const pokemonId = event.target.dataset.pokemonId
+		// console.log(pokemonId)
+		// const pokemonInfo = pokemonStats.find((item) => item.id === pokemonId)
+		console.log(pokemonData)
+	}
+
 	useEffect(() => {
 		// Make a call to get a single Pokemon's data
 		async function fetchSinglePokemon(call) {
@@ -23,7 +30,13 @@ function PokedexContainer() {
 				])
 
 				// Store Pokemon in card component form for rendering
-				const card = <PokemonCard pokemonData={data} key={`${data.id}-key`} />
+				const card = (
+					<PokemonCard
+						pokemonData={data}
+						onClick={handlePokemonCardClick}
+						key={`${data.id}-key`}
+					/>
+				)
 				await setPokemonCards((previousPokemonCards) => [
 					previousPokemonCards,
 					card,
@@ -48,17 +61,15 @@ function PokedexContainer() {
 		fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=21")
 	}, [])
 
-	function handlePokemonCardClick(event) {
-		console.log(event.target)
-	}
+	// console.log(pokemonData)
 
 	return (
 		<div className={styles.pokedexContainer}>
 			<div className={styles.pokedex}>
-				<Pokedex pokemonCards={pokemonCards} />
+				<Pokedex pokemonCards={pokemonCards} onClick={handlePokemonCardClick} />
 			</div>
 			<div className={styles.sidebar}>
-				<Sidebar onClick={handlePokemonCardClick} />
+				<Sidebar />
 			</div>
 		</div>
 	)

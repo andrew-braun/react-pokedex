@@ -5,7 +5,11 @@ function PokemonCard({ pokemonData, onClick }) {
 	const { front_default } = sprites
 
 	return (
-		<button className={styles.pokemonCard} onClick={onClick}>
+		<button
+			className={styles.pokemonCard}
+			onClick={onClick}
+			data-pokemon-id={id}
+		>
 			<div className={styles.pokemonCardName}>
 				{name.slice(0, 1).toUpperCase() + name.slice(1, name.length)}
 			</div>

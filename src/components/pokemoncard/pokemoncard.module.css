@@ -11,7 +11,6 @@
 	background: var(--color-2);
 	transition-timing-function: ease-in-out;
 	transition-duration: 0.2s;
-	animation: fadeIn 0.5s;
 }
 
 .pokemonCard:hover {
@@ -53,13 +52,4 @@
 .pokemonCardBaseXP {
 	padding: 0.5rem;
 	color: white;
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
 }

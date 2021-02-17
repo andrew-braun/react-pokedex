@@ -2,6 +2,7 @@
 	display: grid;
 	grid-template-columns: 3fr 1fr;
 	grid-template-areas: "pokedex sidebar";
+	animation: fadeIn 0.5s;
 }
 
 .pokedex {
@@ -14,6 +15,15 @@
 	grid-area: sidebar;
 	min-height: 10rem;
 	background: var(--color-1);
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @media (max-width: 640px) {
