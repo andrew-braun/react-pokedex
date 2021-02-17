@@ -1,7 +1,7 @@
 import styles from "./pokemoncard.module.css"
 
 function PokemonCard({ pokemonData, onClick }) {
-	const { name, types, abilities, base_experience, sprites } = pokemonData
+	const { name, types, abilities, base_experience, sprites, id } = pokemonData
 	const { front_default } = sprites
 
 	return (
@@ -14,12 +14,22 @@ function PokemonCard({ pokemonData, onClick }) {
 			</div>
 			<div className={styles.pokemonCardTypes}>
 				{types.map((item) => (
-					<span className={styles.pokemonCardType}>{item.type.name}</span>
+					<span
+						className={styles.pokemonCardType}
+						key={`${name}-${item.type.name}`}
+					>
+						{item.type.name}
+					</span>
 				))}
 			</div>
 			<div className={styles.pokemonCardAbilities}>
 				{abilities.map((item) => (
-					<span className={styles.pokemonCardAbility}>{item.ability.name}</span>
+					<span
+						className={styles.pokemonCardAbility}
+						key={`${name}-${item.ability.name}`}
+					>
+						{item.ability.name}
+					</span>
 				))}
 			</div>
 			<div className={styles.pokemonCardBaseXP}>Base XP: {base_experience}</div>
