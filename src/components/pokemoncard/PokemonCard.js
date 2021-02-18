@@ -1,7 +1,7 @@
 import styles from "./pokemoncard.module.css"
 
-function PokemonCard({ pokemonData, onClick }) {
-	const { name, types, abilities, base_experience, sprites, id } = pokemonData
+function PokemonCard({ pokemonStats, onClick, pokemonDetails }) {
+	const { name, types, abilities, base_experience, sprites, id } = pokemonStats
 	const { front_default } = sprites
 
 	return (
