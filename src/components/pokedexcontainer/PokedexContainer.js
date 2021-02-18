@@ -10,15 +10,11 @@ function PokedexContainer() {
 	const [pokemonCards, setPokemonCards] = useState([])
 	const [selectedPokemon, setSelectedPokemon] = useState([])
 
-	const handlePokemonCardClick = (event) => {
-		const pokemonId = event.target.dataset.pokemonId
-		// console.log(pokemonId)
-		const pokemonInfo = pokemonDetails.find((item) => item.id === pokemonId)
-		console.log(pokemonInfo)
-		return pokemonInfo
-	}
-
 	useEffect(() => {
+		setPokemonList([])
+		setPokemonDetails([])
+		setPokemonCards([])
+
 		async function fetchSinglePokemon(call) {
 			try {
 				const response = await fetch(call)
@@ -49,19 +45,27 @@ function PokedexContainer() {
 	}, [])
 
 	useEffect(() => {
+		const handlePokemonCardClick = (event) => {
+			const pokemonId = event.target.dataset.pokemonId
+			// console.log(pokemonId)
+			const pokemonInfo = pokemonDetails.find((item) => item.id === 1)
+			console.log(pokemonInfo)
+			return pokemonInfo
+		}
+
 		const cards = pokemonDetails.map((pokemon) => {
 			const card = (
 				<PokemonCard
 					pokemonStats={pokemon}
 					onClick={handlePokemonCardClick}
-					// key={`${currentPokemon.id}-key`}
+					key={`${pokemon.name}-key`}
 				/>
 			)
 			return card
 		})
 
 		setPokemonCards(cards)
-	})
+	}, [pokemonDetails])
 
 	// Store Pokemon in card component form for rendering
 
