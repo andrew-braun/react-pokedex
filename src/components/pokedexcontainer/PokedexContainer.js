@@ -12,12 +12,23 @@ function PokedexContainer() {
 	const [selectedPokemon, _setSelectedPokemon] = useState([])
 	const [miniPokemonCards, setMiniPokemonCards] = useState([])
 
-	const selectedPokemonRef = useRef(selectedPokemon)
+	let selectedPokemonRef = useRef(selectedPokemon)
 
-	const setSelectedPokemon = (obj) => {
-		selectedPokemonRef.current.push(obj) // keep updated
-		console.log(obj)
-		_setSelectedPokemon([...selectedPokemon, obj])
+	const setSelectedPokemon = (arr, obj) => {
+		console.log(arr)
+		// keep updated
+		if (obj) {
+			console.log("add")
+			_setSelectedPokemon([...arr, obj])
+			selectedPokemonRef.current.push(obj)
+		} else {
+			console.log("del")
+			console.log(arr)
+
+			_setSelectedPokemon([...arr])
+			selectedPokemonRef.current = [...arr]
+			console.log(selectedPokemon)
+		}
 	}
 
 	useEffect(() => {
@@ -74,16 +85,18 @@ function PokedexContainer() {
 	}, [pokemonDetails])
 
 	useEffect(() => {
-		console.log(selectedPokemon)
 		const miniCards = selectedPokemon.map((pokemon) => {
 			const card = (
 				<MiniPokemonCard
 					pokemonStats={pokemon}
+					onClick={handleMiniPokemonCardClick}
 					key={`${pokemon.name}-mini-key`}
 				/>
 			)
-			setMiniPokemonCards([...miniPokemonCards, card])
+			return card
+			// setMiniPokemonCards([...miniPokemonCards, card])
 		})
+		setMiniPokemonCards([...miniCards])
 	}, [selectedPokemon])
 
 	const handlePokemonCardClick = (event) => {
@@ -93,22 +106,28 @@ function PokedexContainer() {
 		const pokemonInfo = pokemonDetails.find(
 			(item) => Number(item.id) === Number(pokemonId)
 		)
-		// console.log(event.target)
-		// console.log(pokemonInfo)
-
-		console.log(pokemonInfo)
 
 		if (
-			!selectedPokemonRef.current.some(
-				(item) => Number(item.id) === Number(pokemonId)
-			)
+			!selectedPokemon.some((item) => Number(item.id) === Number(pokemonId))
 		) {
-			setSelectedPokemon(pokemonInfo)
+			setSelectedPokemon(selectedPokemon, pokemonInfo)
 		}
 
 		return pokemonInfo
 	}
 
+	function handleMiniPokemonCardClick(event) {
+		const parentCard = event.target.closest(".mini-pokemon-card")
+
+		const pokemonId = parentCard.dataset.pokemonId
+
+		const filteredPokemon = selectedPokemon.filter(
+			(item) => Number(item.id) !== Number(pokemonId)
+		)
+		console.log(filteredPokemon)
+
+		setSelectedPokemon(filteredPokemon)
+	}
 	return (
 		<div className={styles.pokedexContainer}>
 			<div className={styles.pokedex}>
