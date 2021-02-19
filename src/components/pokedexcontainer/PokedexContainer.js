@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import MiniPokemonCard from "../../components/minipokemoncard/MiniPokemonCard"
 import Pokedex from "../../components/pokedex/Pokedex"
 import PokemonCard from "../../components/pokemoncard/PokemonCard"
@@ -9,14 +9,21 @@ function PokedexContainer() {
 	const [pokemonList, setPokemonList] = useState()
 	const [pokemonDetails, setPokemonDetails] = useState([])
 	const [pokemonCards, setPokemonCards] = useState([])
-	const [selectedPokemon, setSelectedPokemon] = useState([])
+	const [selectedPokemon, _setSelectedPokemon] = useState([])
 	const [miniPokemonCards, setMiniPokemonCards] = useState([])
+
+	const selectedPokemonRef = useRef(selectedPokemon)
+
+	const setSelectedPokemon = (obj) => {
+		selectedPokemonRef.current.push(obj) // keep updated
+		console.log(obj)
+		_setSelectedPokemon([...selectedPokemon, obj])
+	}
 
 	useEffect(() => {
 		setPokemonList([])
 		setPokemonDetails([])
 		setPokemonCards([])
-		setSelectedPokemon([])
 
 		async function fetchSinglePokemon(call) {
 			try {
@@ -53,6 +60,8 @@ function PokedexContainer() {
 				const card = (
 					<PokemonCard
 						pokemonStats={pokemon}
+						pokemonDetails={pokemonDetails}
+						selectedPokemon={selectedPokemon}
 						onClick={handlePokemonCardClick}
 						key={`${pokemon.name}-key`}
 					/>
@@ -73,9 +82,8 @@ function PokedexContainer() {
 					key={`${pokemon.name}-mini-key`}
 				/>
 			)
-			return card
+			setMiniPokemonCards([...miniPokemonCards, card])
 		})
-		setMiniPokemonCards(miniCards)
 	}, [selectedPokemon])
 
 	const handlePokemonCardClick = (event) => {
@@ -88,10 +96,15 @@ function PokedexContainer() {
 		// console.log(event.target)
 		// console.log(pokemonInfo)
 
-		setSelectedPokemon((previousSelectedPokemon) => [
-			...previousSelectedPokemon,
-			pokemonInfo,
-		])
+		console.log(pokemonInfo)
+
+		if (
+			!selectedPokemonRef.current.some(
+				(item) => Number(item.id) === Number(pokemonId)
+			)
+		) {
+			setSelectedPokemon(pokemonInfo)
+		}
 
 		return pokemonInfo
 	}
