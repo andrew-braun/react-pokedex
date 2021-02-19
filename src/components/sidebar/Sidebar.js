@@ -1,6 +1,7 @@
 import styles from "./sidebar.module.css"
 
-function Sidebar({ props }) {
+function Sidebar(props) {
+	const { pokemonCards } = props
 	return (
 		<aside className={styles.sidebar}>
 			<header className={styles.sidebarHeader}>
@@ -10,7 +11,7 @@ function Sidebar({ props }) {
 					set!
 				</p>
 			</header>
-			<div className={styles.sidebarItems}></div>
+			<div className={styles.sidebarItems}>{pokemonCards}</div>
 		</aside>
 	)
 }

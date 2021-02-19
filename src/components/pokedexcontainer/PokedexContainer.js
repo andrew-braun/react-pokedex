@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import MiniPokemonCard from "../../components/minipokemoncard/MiniPokemonCard"
 import Pokedex from "../../components/pokedex/Pokedex"
 import PokemonCard from "../../components/pokemoncard/PokemonCard"
 import Sidebar from "../../components/sidebar/Sidebar"
@@ -9,11 +10,13 @@ function PokedexContainer() {
 	const [pokemonDetails, setPokemonDetails] = useState([])
 	const [pokemonCards, setPokemonCards] = useState([])
 	const [selectedPokemon, setSelectedPokemon] = useState([])
+	const [miniPokemonCards, setMiniPokemonCards] = useState([])
 
 	useEffect(() => {
 		setPokemonList([])
 		setPokemonDetails([])
 		setPokemonCards([])
+		setSelectedPokemon([])
 
 		async function fetchSinglePokemon(call) {
 			try {
@@ -41,33 +44,57 @@ function PokedexContainer() {
 				console.log(error)
 			}
 		}
-		fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=21")
+		return fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=21")
 	}, [])
 
 	useEffect(() => {
-		const handlePokemonCardClick = (event) => {
-			const pokemonId = event.target.dataset.pokemonId
-			// console.log(pokemonId)
-			const pokemonInfo = pokemonDetails.find((item) => item.id === 1)
-			console.log(pokemonInfo)
-			return pokemonInfo
+		function generateCards() {
+			const cards = pokemonDetails.map((pokemon) => {
+				const card = (
+					<PokemonCard
+						pokemonStats={pokemon}
+						onClick={handlePokemonCardClick}
+						key={`${pokemon.name}-key`}
+					/>
+				)
+				return card
+			})
+			setPokemonCards(cards)
 		}
+		return generateCards()
+	}, [pokemonDetails])
 
-		const cards = pokemonDetails.map((pokemon) => {
+	useEffect(() => {
+		console.log(selectedPokemon)
+		const miniCards = selectedPokemon.map((pokemon) => {
 			const card = (
-				<PokemonCard
+				<MiniPokemonCard
 					pokemonStats={pokemon}
-					onClick={handlePokemonCardClick}
-					key={`${pokemon.name}-key`}
+					key={`${pokemon.name}-mini-key`}
 				/>
 			)
 			return card
 		})
+		setMiniPokemonCards(miniCards)
+	}, [selectedPokemon])
 
-		setPokemonCards(cards)
-	}, [pokemonDetails])
+	const handlePokemonCardClick = (event) => {
+		const parentCard = event.target.closest("button")
+		const pokemonId = parentCard.dataset.pokemonId
 
-	// Store Pokemon in card component form for rendering
+		const pokemonInfo = pokemonDetails.find(
+			(item) => Number(item.id) === Number(pokemonId)
+		)
+		// console.log(event.target)
+		// console.log(pokemonInfo)
+
+		setSelectedPokemon((previousSelectedPokemon) => [
+			...previousSelectedPokemon,
+			pokemonInfo,
+		])
+
+		return pokemonInfo
+	}
 
 	return (
 		<div className={styles.pokedexContainer}>
@@ -75,7 +102,7 @@ function PokedexContainer() {
 				<Pokedex pokemonCards={pokemonCards} />
 			</div>
 			<div className={styles.sidebar}>
-				<Sidebar />
+				<Sidebar pokemonCards={miniPokemonCards} />
 			</div>
 		</div>
 	)
