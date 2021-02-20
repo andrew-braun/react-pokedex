@@ -1,133 +1,56 @@
-import React, { useEffect, useRef, useState } from "react"
-import MiniPokemonCard from "../../components/minipokemoncard/MiniPokemonCard"
+import React, { useState, useEffect } from "react"
 import Pokedex from "../../components/pokedex/Pokedex"
 import PokemonCard from "../../components/pokemoncard/PokemonCard"
 import Sidebar from "../../components/sidebar/Sidebar"
 import styles from "./pokedexcontainer.module.css"
 
 function PokedexContainer() {
-	const [pokemonList, setPokemonList] = useState()
-	const [pokemonDetails, setPokemonDetails] = useState([])
+	const [pokemonData, setPokemonData] = useState({})
+	const [pokemon, setPokemon] = useState([])
 	const [pokemonCards, setPokemonCards] = useState([])
-	const [selectedPokemon, _setSelectedPokemon] = useState([])
 	const [miniPokemonCards, setMiniPokemonCards] = useState([])
 
-	let selectedPokemonRef = useRef(selectedPokemon)
-
-	const setSelectedPokemon = (arr, obj) => {
-		console.log(arr)
-		// keep updated
-		if (obj) {
-			console.log("add")
-			_setSelectedPokemon([...arr, obj])
-			selectedPokemonRef.current.push(obj)
-		} else {
-			console.log("del")
-			console.log(arr)
-
-			_setSelectedPokemon([...arr])
-			selectedPokemonRef.current = [...arr]
-			console.log(selectedPokemon)
-		}
-	}
-
+	// Populate initial Pokémon list
 	useEffect(() => {
-		setPokemonList([])
-		setPokemonDetails([])
+		// Reset state on page refresh
+		setPokemon([])
 		setPokemonCards([])
 
-		async function fetchSinglePokemon(call) {
-			try {
-				const response = await fetch(call)
-				const data = await response.json()
-				// Store Pokemon data in an array of objects
-				await setPokemonDetails((previousPokemonDetails) => [
-					...previousPokemonDetails,
-					data,
-				])
-			} catch (error) {
-				console.log(error)
-			}
+		async function fetchData(endpoint) {
+			const response = await fetch(endpoint)
+			const data = await response.json()
+			return data
 		}
 
-		// Fetch a list of all pokemon
-		async function fetchPokemonList(call) {
-			try {
-				const response = await fetch(call)
-				const data = await response.json()
-				await setPokemonList(data)
+		async function fetchPokemon() {
+			// Get list of pokemon containing basic name/url data
+			const basicPokemonList = await fetchData(
+				"https://pokeapi.co/api/v2/pokemon?limit=21"
+			)
+			await setPokemonData(basicPokemonList)
 
-				await data.results.map((item) => fetchSinglePokemon(item.url))
-			} catch (error) {
-				console.log(error)
-			}
+			// Map through list of basic Pokémon data and make calls to each url to get individual Pokémon
+			const detailedPokemonList = await Promise.all(
+				basicPokemonList.results.map(async (item) => {
+					const newPokemon = await fetchData(item.url)
+					setPokemon((previousPokemon) => [...previousPokemon, newPokemon])
+
+					return newPokemon
+				})
+			)
 		}
-		return fetchPokemonList("https://pokeapi.co/api/v2/pokemon?limit=21")
+		fetchPokemon()
 	}, [])
 
 	useEffect(() => {
-		function generateCards() {
-			const cards = pokemonDetails.map((pokemon) => {
-				const card = (
-					<PokemonCard
-						pokemonStats={pokemon}
-						pokemonDetails={pokemonDetails}
-						selectedPokemon={selectedPokemon}
-						onClick={handlePokemonCardClick}
-						key={`${pokemon.name}-key`}
-					/>
-				)
-				return card
-			})
-			setPokemonCards(cards)
-		}
-		return generateCards()
-	}, [pokemonDetails])
-
-	useEffect(() => {
-		const miniCards = selectedPokemon.map((pokemon) => {
-			const card = (
-				<MiniPokemonCard
-					pokemonStats={pokemon}
-					onClick={handleMiniPokemonCardClick}
-					key={`${pokemon.name}-mini-key`}
-				/>
+		const mainCards = pokemon.map((pokemon) => {
+			return (
+				<PokemonCard pokemonStats={pokemon} key={`${pokemon.id}-card-key`} />
 			)
-			return card
-			// setMiniPokemonCards([...miniPokemonCards, card])
 		})
-		setMiniPokemonCards([...miniCards])
-	}, [selectedPokemon])
+		setPokemonCards(mainCards)
+	}, [pokemon])
 
-	const handlePokemonCardClick = (event) => {
-		const parentCard = event.target.closest("button")
-		const pokemonId = parentCard.dataset.pokemonId
-
-		const pokemonInfo = pokemonDetails.find(
-			(item) => Number(item.id) === Number(pokemonId)
-		)
-
-		if (
-			!selectedPokemon.some((item) => Number(item.id) === Number(pokemonId))
-		) {
-			setSelectedPokemon(selectedPokemon, pokemonInfo)
-		}
-
-		return pokemonInfo
-	}
-
-	function handleMiniPokemonCardClick(event) {
-		const parentCard = event.target.closest(".mini-pokemon-card")
-
-		const pokemonId = parentCard.dataset.pokemonId
-
-		const filteredPokemon = selectedPokemon.filter(
-			(item) => Number(item.id) !== Number(pokemonId)
-		)
-		console.log(filteredPokemon)
-
-		setSelectedPokemon(filteredPokemon)
-	}
 	return (
 		<div className={styles.pokedexContainer}>
 			<div className={styles.pokedex}>
