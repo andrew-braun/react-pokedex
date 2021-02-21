@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Pokedex from "../../components/pokedex/Pokedex"
 import PokemonCard from "../../components/pokemoncard/PokemonCard"
+import MiniPokemonCard from "../../components/minipokemoncard/MiniPokemonCard"
 import Sidebar from "../../components/sidebar/Sidebar"
 import styles from "./pokedexcontainer.module.css"
 
@@ -9,6 +10,7 @@ function PokedexContainer() {
 	const [pokemon, setPokemon] = useState([])
 	const [pokemonCards, setPokemonCards] = useState([])
 	const [miniPokemonCards, setMiniPokemonCards] = useState([])
+	const [selectedPokemon, setSelectedPokemon] = useState([])
 
 	// Populate initial Pokémon list
 	useEffect(() => {
@@ -43,14 +45,68 @@ function PokedexContainer() {
 	}, [])
 
 	useEffect(() => {
+		// Regenerate list of pokemon cards every time the list of pokemon is updated
 		const mainCards = pokemon.map((pokemon) => {
 			return (
-				<PokemonCard pokemonStats={pokemon} key={`${pokemon.id}-card-key`} />
+				<PokemonCard
+					pokemonStats={pokemon}
+					onClick={(event) => handlePokemonClick(event)}
+					key={`${pokemon.id}-card-key`}
+				/>
 			)
 		})
 		setPokemonCards(mainCards)
 	}, [pokemon])
 
+	useEffect(() => {
+		// Watch seletedPokemon array for changes and update based on it
+		function updateMiniPokemonCards() {
+			const miniCards = selectedPokemon.map((pokemon) => {
+				const miniPokemonCard = (
+					<MiniPokemonCard
+						pokemonStats={pokemon}
+						onClick={handleMiniPokemonClick}
+						key={`mini-pokemon-${pokemon.id}`}
+					/>
+				)
+				return miniPokemonCard
+			})
+
+			setMiniPokemonCards(miniCards)
+		}
+		updateMiniPokemonCards()
+	}, [selectedPokemon])
+
+	function handlePokemonClick(event) {
+		const element = event.target.closest("button")
+		const pokemonId = Number(element.dataset.pokemonId)
+		const matchingPokemon = pokemon.find((item) => item.id === pokemonId)
+
+		setSelectedPokemon((previousSelectedPokemon) => {
+			if (!previousSelectedPokemon.some((item) => item.id === pokemonId)) {
+				return [...previousSelectedPokemon, matchingPokemon]
+			} else {
+				return previousSelectedPokemon
+			}
+		})
+	}
+
+	function handleMiniPokemonClick(event) {
+		const element = event.target.closest(".mini-pokemon-card")
+		const pokemonId = Number(element.dataset.pokemonId)
+
+		setSelectedPokemon((previousSelectedPokemon) => {
+			const newArray = previousSelectedPokemon.filter(
+				(pokemon) => pokemon.id !== pokemonId
+			)
+			return newArray
+		})
+
+		const matchingPokemon = selectedPokemon.find(
+			(item) => item.id === pokemonId
+		)
+		console.log(matchingPokemon)
+	}
 	return (
 		<div className={styles.pokedexContainer}>
 			<div className={styles.pokedex}>
