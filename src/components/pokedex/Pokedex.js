@@ -1,3 +1,6 @@
+import React from "react"
+import ReactDOM from "react-dom"
+
 import styles from "./pokedex.module.css"
 
 function Pokedex({ pokemonCards }) {

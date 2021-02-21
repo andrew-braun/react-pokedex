@@ -1,3 +1,4 @@
+import React from "react"
 import styles from "./minipokemoncard.module.css"
 
 function MiniPokemonCard({ pokemonStats, onClick, pokemonDetails }) {

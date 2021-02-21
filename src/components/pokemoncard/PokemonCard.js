@@ -1,3 +1,4 @@
+import React from "react"
 import styles from "./pokemoncard.module.css"
 
 function PokemonCard({ pokemonStats, onClick, pokemonDetails }) {
