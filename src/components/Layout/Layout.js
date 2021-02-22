@@ -8,7 +8,13 @@ function Layout({ children }) {
 				<div className={styles.siteTitle}>React Pokédex</div>
 			</header>
 			<main className={styles.main}>{children}</main>
-			<footer className={styles.footer}>Made with ❤️ by Andrew Braun</footer>
+			<footer className={styles.footer}>
+				Made with{" "}
+				<span role="img" aria-label="heart-emoji">
+					❤️
+				</span>
+				by Andrew Braun
+			</footer>
 		</div>
 	)
 }

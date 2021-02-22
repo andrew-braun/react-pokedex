@@ -40,6 +40,7 @@ function PokedexContainer() {
 					return newPokemon
 				})
 			)
+			return detailedPokemonList
 		}
 		fetchPokemon()
 	}, [])

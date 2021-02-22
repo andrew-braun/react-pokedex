@@ -2,7 +2,7 @@ import React from "react"
 import styles from "./minipokemoncard.module.css"
 
 function MiniPokemonCard({ pokemonStats, onClick, pokemonDetails }) {
-	const { name, types, abilities, base_experience, sprites, id } = pokemonStats
+	const { name, types, base_experience, sprites, id } = pokemonStats
 	const { front_default } = sprites
 	return (
 		<div
