@@ -131,15 +131,17 @@ function PokedexContainer() {
 		)
 	}
 	return (
-		<div className={styles.pokedexContainer}>
-			<div className={styles.pokedex}>
-				<Pokedex pokemonCards={pokemonCards} setSearchTerm={setSearchTerm} />
-			</div>
-			<div className={styles.sidebar}>
-				<Sidebar pokemonCards={miniPokemonCards} />
+		<React.Fragment>
+			<div className={styles.pokedexContainer}>
+				<div className={styles.pokedex}>
+					<Pokedex pokemonCards={pokemonCards} setSearchTerm={setSearchTerm} />
+				</div>
+				<div className={styles.sidebar}>
+					<Sidebar pokemonCards={miniPokemonCards} />
+				</div>
 			</div>
 			<HamburgerMenuContainer pokemonCards={miniPokemonCards} />
-		</div>
+		</React.Fragment>
 	)
 }
 
