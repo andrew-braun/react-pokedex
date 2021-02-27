@@ -11,6 +11,7 @@ function PokedexContainer() {
 	const [pokemonCards, setPokemonCards] = useState([])
 	const [miniPokemonCards, setMiniPokemonCards] = useState([])
 	const [selectedPokemon, setSelectedPokemon] = useState([])
+	const [searchTerm, setSearchTerm] = useState("")
 
 	// Populate initial Pokémon list
 	useEffect(() => {
@@ -47,17 +48,38 @@ function PokedexContainer() {
 
 	useEffect(() => {
 		// Regenerate list of pokemon cards every time the list of pokemon is updated
-		const mainCards = pokemon.map((pokemon) => {
-			return (
-				<PokemonCard
-					pokemonStats={pokemon}
-					onClick={(event) => handlePokemonClick(event)}
-					key={`${pokemon.id}-card-key`}
-				/>
-			)
-		})
+		const mainCards = pokemon
+			.filter((pokemon) => {
+				const filterTraits = [
+					pokemon.name.toLowerCase(),
+					pokemon.id.toString(),
+					pokemon.types
+						.map((type) => {
+							return type.type.name
+						})
+						.join(" "),
+					pokemon.abilities
+						.map((ability) => {
+							return ability.ability.name
+						})
+						.join(" "),
+				]
+
+				return filterTraits.some((trait) => {
+					return trait.includes(searchTerm.toLowerCase())
+				})
+			})
+			.map((pokemon) => {
+				return (
+					<PokemonCard
+						pokemonStats={pokemon}
+						onClick={(event) => handlePokemonClick(event)}
+						key={`${pokemon.id}-card-key`}
+					/>
+				)
+			})
 		setPokemonCards(mainCards)
-	}, [pokemon])
+	}, [pokemon, searchTerm])
 
 	useEffect(() => {
 		// Watch seletedPokemon array for changes and update based on it
@@ -106,12 +128,11 @@ function PokedexContainer() {
 		const matchingPokemon = selectedPokemon.find(
 			(item) => item.id === pokemonId
 		)
-		console.log(matchingPokemon)
 	}
 	return (
 		<div className={styles.pokedexContainer}>
 			<div className={styles.pokedex}>
-				<Pokedex pokemonCards={pokemonCards} />
+				<Pokedex pokemonCards={pokemonCards} setSearchTerm={setSearchTerm} />
 			</div>
 			<div className={styles.sidebar}>
 				<Sidebar pokemonCards={miniPokemonCards} />

@@ -1,0 +1,18 @@
+.searchbarContainer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.searchbar {
+	width: 90%;
+	height: 2rem;
+	padding: 1rem;
+	border: none;
+	border-radius: 0.5rem;
+	background: hsla(213, 57%, 52%, 0.5);
+}
+
+.searchbar:focus {
+	outline: none;
+}
