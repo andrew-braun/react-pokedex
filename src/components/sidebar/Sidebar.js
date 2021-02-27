@@ -7,13 +7,15 @@ function Sidebar(props) {
 		<aside className={styles.sidebar}>
 			<header className={styles.sidebarHeader}>
 				<div className={styles.sidebarTitle}>Build Your Pokédeck!</div>
-				<p className={styles.sidebarDescription}>
-					Select Pokémon, then test them against a randomly selected set!
-				</p>
 			</header>
-			<div className={styles.sidebarItems}>{pokemonCards}</div>
+			<SidebarItems pokemonCards={pokemonCards} />
 		</aside>
 	)
 }
 
+function SidebarItems({ pokemonCards }) {
+	return <div className={styles.sidebarItems}>{pokemonCards}</div>
+}
+
 export default Sidebar
+export { SidebarItems }

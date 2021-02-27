@@ -3,6 +3,7 @@ import Pokedex from "../../components/pokedex/Pokedex"
 import PokemonCard from "../../components/pokemoncard/PokemonCard"
 import MiniPokemonCard from "../../components/minipokemoncard/MiniPokemonCard"
 import Sidebar from "../../components/sidebar/Sidebar"
+import HamburgerMenu from "../hamburgermenu/HamburgerMenu"
 import styles from "./pokedexcontainer.module.css"
 
 function PokedexContainer() {
@@ -137,6 +138,7 @@ function PokedexContainer() {
 			<div className={styles.sidebar}>
 				<Sidebar pokemonCards={miniPokemonCards} />
 			</div>
+			<HamburgerMenu pokemonCards={miniPokemonCards} />
 		</div>
 	)
 }

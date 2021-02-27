@@ -8,7 +8,7 @@ function SearchBar({ searchTerm, setSearchTerm }) {
 				className={styles.searchbar}
 				type="text"
 				role="search"
-				placeholder="Search for a Pokémon"
+				placeholder="Search for Pokémon by name, type, ability, or ID"
 				value={searchTerm}
 				onChange={(event) => setSearchTerm(event.target.value)}
 			></input>
