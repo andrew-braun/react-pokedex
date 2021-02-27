@@ -5,10 +5,10 @@ import styles from "./pokedex.module.css"
 
 function Pokedex({ pokemonCards, searchTerm, setSearchTerm }) {
 	return (
-		<React.Fragment>
+		<div className={styles.pokedexComponent}>
 			<SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 			<div className={styles.pokedex}>{pokemonCards}</div>
-		</React.Fragment>
+		</div>
 	)
 }
 

@@ -1,11 +1,9 @@
 .hamburgerMenuContainer {
 	position: relative;
 	top: 0;
-	right: 0;
 	bottom: 0;
-	left: 0;
-	width: 50%;
-	height: 100%;
+	width: 40%;
+	max-height: 85vh;
 	background: var(--color-1);
 	text-align: center;
 	transition: transform 0.3s ease-in-out;
@@ -23,9 +21,17 @@
 }
 
 .hamburgerMenuClosed {
+	width: 0%;
 	transform: translateX(-100%);
 }
 
 .hamburgerMenuOpen {
+	width: 60%;
 	transform: translateX(0%);
+}
+
+@media screen and (min-width: 640px) {
+	.hamburgerMenuContainer {
+		display: none;
+	}
 }

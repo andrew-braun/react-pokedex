@@ -3,11 +3,14 @@
 	grid-template-columns: 3fr 1fr;
 	grid-template-areas: "pokedex sidebar";
 	animation: fadeIn 0.5s;
+	overflow: hidden;
+	max-height: 92vh;
 }
 
 .pokedex {
 	margin-top: 5rem;
 	grid-area: pokedex;
+	overflow: hidden;
 }
 
 .sidebar {
@@ -28,19 +31,13 @@
 
 @media (max-width: 640px) {
 	.pokedexContainer {
-		grid-template-columns: 100%;
-		grid-template-areas:
-			"pokedex"
-			"sidebar";
+		display: flex;
 	}
 	.pokedex {
-		grid-row: 2;
+		display: flex;
+		width: 100%;
 	}
 	.sidebar {
 		display: none;
-		position: fixed;
-		margin-top: 4.5rem;
-		grid-row: 1;
-		width: 100%;
 	}
 }

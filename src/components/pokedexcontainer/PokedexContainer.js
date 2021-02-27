@@ -134,13 +134,14 @@ function PokedexContainer() {
 		<React.Fragment>
 			<div className={styles.pokedexContainer}>
 				<div className={styles.pokedex}>
+					<HamburgerMenuContainer pokemonCards={miniPokemonCards} />
 					<Pokedex pokemonCards={pokemonCards} setSearchTerm={setSearchTerm} />
 				</div>
+
 				<div className={styles.sidebar}>
 					<Sidebar pokemonCards={miniPokemonCards} />
 				</div>
 			</div>
-			<HamburgerMenuContainer pokemonCards={miniPokemonCards} />
 		</React.Fragment>
 	)
 }

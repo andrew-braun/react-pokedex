@@ -1,5 +1,12 @@
+.pokedexComponent {
+	width: 100%;
+}
 .pokedex {
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+	padding: 1rem 0.5rem;
+	max-height: 74vh;
+	overflow-y: scroll;
 }
