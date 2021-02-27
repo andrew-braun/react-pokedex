@@ -3,14 +3,17 @@
 	grid-template-columns: 3fr 1fr;
 	grid-template-areas: "pokedex sidebar";
 	animation: fadeIn 0.5s;
+	width: 100%;
 	overflow: hidden;
 	max-height: 92vh;
 }
 
 .pokedex {
 	margin-top: 5rem;
+	padding: 1rem 0.2rem;
 	grid-area: pokedex;
 	overflow: hidden;
+	max-height: 76vh;
 }
 
 .sidebar {
