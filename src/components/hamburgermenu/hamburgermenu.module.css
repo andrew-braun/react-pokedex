@@ -8,6 +8,8 @@
 	height: 100%;
 	background: var(--color-1);
 	text-align: center;
+	transition: transform 0.3s ease-in-out;
+	transform: translateX(-100%);
 }
 
 .hamburgerTitle {
@@ -17,4 +19,18 @@
 	font-size: 1.4rem;
 	width: 100%;
 	text-align: center;
+}
+
+.hamburgerMenuClosed {
+	transform: translateX(-100%);
+}
+
+.hamburgerMenuOpen {
+	transform: translateX(0%);
+}
+
+@media (max-width: 600px) {
+	.hamburgerMenuContainer {
+		width: 100%;
+	}
 }
