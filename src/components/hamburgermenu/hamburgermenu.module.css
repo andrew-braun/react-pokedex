@@ -6,7 +6,7 @@
 	background: var(--color-1);
 	text-align: center;
 	transition: transform 0.3s ease-in-out;
-	transform: translateX(-100%);
+	transform: translateX(-200%);
 	overflow-y: hidden;
 	z-index: 100;
 }
@@ -26,13 +26,34 @@
 }
 
 .hamburgerMenuClosed {
-	width: 0%;
-	transform: translateX(-100%);
+	animation: slideOut 0.5s ease-in-out forwards;
 }
 
 .hamburgerMenuOpen {
 	width: clamp(50vw, 70vw, 90vw);
-	transform: translateX(0%);
+	animation: slideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+	from {
+		width: 0%;
+		transform: translateX(-200%);
+	}
+	to {
+		width: 80%;
+		transform: translateX(0%);
+	}
+}
+
+@keyframes slideOut {
+	from {
+		width: 80%;
+		transform: translateX(0%);
+	}
+	to {
+		width: 0%;
+		transform: translateX(-200%);
+	}
 }
 
 @media screen and (min-width: 640px) {
