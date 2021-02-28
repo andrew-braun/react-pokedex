@@ -4,6 +4,12 @@ import styles from "./minipokemoncard.module.css"
 function MiniPokemonCard({ pokemonStats, onClick, pokemonDetails }) {
 	const { name, types, base_experience, sprites, id } = pokemonStats
 	const { front_default } = sprites
+
+	let paddedId =
+		id.toString().length < 3
+			? `${"0".repeat(3 - id.toString().length)}${id}`
+			: id
+
 	return (
 		<div
 			className={`${styles.pokemonCard} mini-pokemon-card`}
@@ -16,7 +22,7 @@ function MiniPokemonCard({ pokemonStats, onClick, pokemonDetails }) {
 			</div>
 			<div className={styles.pokemonCardImageContainer}>
 				<img
-					src={front_default}
+					src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${paddedId}.png`}
 					alt={name}
 					className={styles.pokemonCardImage}
 				/>

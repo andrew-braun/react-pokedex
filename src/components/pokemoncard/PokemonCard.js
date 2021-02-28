@@ -4,6 +4,10 @@ import styles from "./pokemoncard.module.css"
 function PokemonCard({ pokemonStats, onClick, pokemonDetails }) {
 	const { name, types, abilities, base_experience, sprites, id } = pokemonStats
 	const { front_default } = sprites
+	let paddedId =
+		id.toString().length < 3
+			? `${"0".repeat(3 - id.toString().length)}${id}`
+			: id
 
 	return (
 		<button
@@ -15,7 +19,10 @@ function PokemonCard({ pokemonStats, onClick, pokemonDetails }) {
 				{name.slice(0, 1).toUpperCase() + name.slice(1, name.length)}
 			</div>
 			<div className={styles.pokemonCardImage}>
-				<img src={front_default} alt={name} />
+				<img
+					src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${paddedId}.png`}
+					alt={name}
+				/>
 			</div>
 			<div className={styles.pokemonCardTypes}>
 				{types.map((item) => (
