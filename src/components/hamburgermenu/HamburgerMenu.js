@@ -15,7 +15,9 @@ function HamburgerMenu({ pokemonCards, menuIsOpen, setMenuIsOpen }) {
 	return (
 		<div className={hamburgerMenuContainer}>
 			<div className={styles.hamburgerTitle}>Build Your Pokédeck!</div>
-			<SidebarItems pokemonCards={pokemonCards} />
+			<div className={styles.sidebarItems}>
+				<SidebarItems pokemonCards={pokemonCards} />
+			</div>
 		</div>
 	)
 }

@@ -15,6 +15,7 @@
 }
 
 .pokemonCard:hover {
+	cursor: pointer;
 	transform: rotate(5deg) translateY(-20px);
 	opacity: 0.9;
 }

@@ -2,13 +2,18 @@
 	position: relative;
 	top: 0;
 	bottom: 0;
-	width: 60%;
 	max-height: 85vh;
 	background: var(--color-1);
 	text-align: center;
 	transition: transform 0.3s ease-in-out;
 	transform: translateX(-100%);
 	overflow-y: hidden;
+	z-index: 100;
+}
+
+.sidebarItems {
+	max-height: 80%;
+	overflow-y: auto;
 }
 
 .hamburgerTitle {
@@ -26,7 +31,7 @@
 }
 
 .hamburgerMenuOpen {
-	width: 60%;
+	width: clamp(50vw, 70vw, 90vw);
 	transform: translateX(0%);
 }
 

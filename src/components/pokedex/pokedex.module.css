@@ -1,4 +1,4 @@
-.pokedexComponent {
+.pokedexComponentContainer {
 	width: 100%;
 }
 .pokedex {
@@ -6,7 +6,19 @@
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
+	height: 100%;
 	padding: 1rem 0.5rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 65vh;
+	animation: fadeIn 0.5s forwards;
+	z-index: 50;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
