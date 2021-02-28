@@ -29,7 +29,7 @@ function PokedexContainer() {
 		async function fetchPokemon() {
 			// Get list of pokemon containing basic name/url data
 			const basicPokemonList = await fetchData(
-				"https://pokeapi.co/api/v2/pokemon?limit=21"
+				"https://pokeapi.co/api/v2/pokemon?limit=151"
 			)
 			await setPokemonData(basicPokemonList)
 
